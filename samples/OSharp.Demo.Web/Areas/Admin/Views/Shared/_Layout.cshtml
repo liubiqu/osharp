@@ -10,7 +10,7 @@
     <link href="/Content/themes/gray/easyui.css" rel="stylesheet" />
     <link href="/Content/themes/icon.css" rel="stylesheet" />
     <link href="/Content/osharp-icons.css" rel="stylesheet" />
-    <link href="/Content/osharp-admin.css" rel="stylesheet"/>
+    <link href="/Content/osharp-admin.css" rel="stylesheet" />
     @RenderSection("header", false)
 </head>
 <body>
@@ -25,5 +25,7 @@
     <script src="/Scripts/osharp.data.js" type="text/javascript"></script>
     <script src="/Scripts/osharp.data.demo.js" type="text/javascript"></script>
     @RenderSection("footer", false)
+    @using StackExchange.Profiling
+    @MiniProfiler.RenderIncludes()
 </body>
 </html>

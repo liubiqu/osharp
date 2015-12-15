@@ -16,6 +16,9 @@ using System.Web.Routing;
 using OSharp.Web.Http.Extensions;
 using OSharp.Web.Mvc.Routing;
 
+using StackExchange.Profiling;
+using StackExchange.Profiling.EntityFramework6;
+
 
 namespace OSharp.Demo.Web
 {
@@ -23,8 +26,10 @@ namespace OSharp.Demo.Web
     {
         protected void Application_Start(object sender, EventArgs e)
         {
+            
             AreaRegistration.RegisterAllAreas();
             RoutesRegister();
+            MiniProfilerEF6.Initialize();
         }
 
         private static void RoutesRegister()
@@ -38,6 +43,20 @@ namespace OSharp.Demo.Web
                 "{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional },
                 new[] { "OSharp.Demo.Web.Controllers" });
+        }
+
+
+        protected void Application_BeginRequest()
+        {
+            if (Request.IsLocal)
+            {
+                MiniProfiler.Start();
+            }
+        }
+
+        protected void Application_EndRequest()
+        {
+            MiniProfiler.Stop();
         }
     }
 }
